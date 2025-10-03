@@ -7,9 +7,7 @@ const GITHUB_URL = `https://github.com/${GITHUB_HANDLE}`;
 
 const LINKS = {
   personalLive: "https://buman-erdem.github.io/Personal-Website/",
-  personalRepo: "https://github.com/Buman-Erdem/Personal-Website",
   filmLive: "https://Buman-Erdem.github.io/FilmMoods/",
-  filmRepo: "https://github.com/Buman-Erdem/FilmMoods",
 };
 
 const PROJECTS = [
@@ -18,84 +16,22 @@ const PROJECTS = [
     desc:
       "This site — responsive portfolio & blog built with React + Tailwind and deployed on GitHub Pages.",
     tags: ["React", "Tailwind", "GitHub Pages"],
-    live: LINKS.personalLive,
-    repo: LINKS.personalRepo,
+    link: LINKS.personalLive,
   },
   {
     title: "FilmMoods",
     desc:
       "Mood-based movie recommender using client-side cosine similarity over curated embeddings.",
     tags: ["Next.js", "Recommender"],
-    live: LINKS.filmLive,
-    repo: LINKS.filmRepo,
+    link: LINKS.filmLive,
   },
   {
     title: "To be continued…",
     desc: "More builds are on the way. Stay tuned!",
     tags: ["WIP"],
-    wip: true,
+    link: "#",
   },
 ];
-
-function Tag({ children }) {
-  return (
-    <span className="inline-block rounded-md bg-slate-800 px-2 py-1 text-xs text-slate-300 ring-1 ring-white/10">
-      {children}
-    </span>
-  );
-}
-
-function ProjectCard({ p }) {
-  const Wrapper = ({ children }) =>
-    p.wip ? (
-      <div className="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">{children}</div>
-    ) : (
-      <div className="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10 transition hover:-translate-y-[3px] hover:bg-slate-900/80 hover:ring-cyan-500/40">
-        {children}
-      </div>
-    );
-
-  return (
-    <Wrapper>
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-semibold">{p.title}</h3>
-        {!p.wip && (
-          <a
-            href={p.live}
-            className="text-sm text-indigo-300 hover:text-indigo-200 underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Live →
-          </a>
-        )}
-      </div>
-      <p className="mt-2 text-sm text-slate-300">{p.desc}</p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {p.tags.map((t) => (
-          <Tag key={t}>{t}</Tag>
-        ))}
-      </div>
-      {!p.wip && p.repo && (
-        <div className="mt-4">
-          <a
-            href={p.repo}
-            className="text-sm text-slate-400 hover:text-slate-200 underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-        </div>
-      )}
-      {p.wip && (
-        <div className="mt-4 text-sm bg-gradient-to-r from-indigo-300 via-fuchsia-300 to-sky-300 bg-clip-text text-transparent">
-          To be continued…
-        </div>
-      )}
-    </Wrapper>
-  );
-}
 
 export default function App() {
   return (
@@ -119,7 +55,7 @@ export default function App() {
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="grid items-center gap-10 md:grid-cols-[190px_1fr]">
-          {/* Avatar */}
+          {/* Avatar with perfect framing */}
           <div className="mx-auto h-[190px] w-[190px] rounded-full bg-slate-900/60 p-1 ring-2 ring-indigo-500/40 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)]">
             <div className="h-full w-full overflow-hidden rounded-full bg-slate-800">
               <img
@@ -135,10 +71,12 @@ export default function App() {
               Buman-Erdem Enkhbold
             </h1>
 
+            {/* Majors */}
             <p className="mt-2 text-[15px] text-slate-300">
               B.S. Computer Science • B.S. Data Science — UW–Madison
             </p>
 
+            {/* Job-seeking summary */}
             <p className="mt-4 max-w-2xl text-slate-300">
               Seeking <span className="font-medium text-white">Software Engineer</span> roles with a focus on{" "}
               <span className="font-medium text-white">backend and platform</span>. Strong with REST APIs,
@@ -146,6 +84,7 @@ export default function App() {
               CI/CD, and developer tooling.
             </p>
 
+            {/* Chips */}
             <div className="mt-6 flex flex-wrap gap-2 text-xs">
               <span className="rounded-full bg-indigo-500/20 px-3 py-1 text-indigo-200 ring-1 ring-indigo-500/40">
                 C.S. & D.S. double major
@@ -158,6 +97,7 @@ export default function App() {
               </span>
             </div>
 
+            {/* CTAs */}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#contact"
@@ -191,19 +131,125 @@ export default function App() {
         <h2 className="text-2xl font-semibold">Projects</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           {PROJECTS.map((p) => (
-            <ProjectCard key={p.title} p={p} />
+            <a
+              key={p.title}
+              href={p.link}
+              className="group rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10 transition hover:-translate-y-[3px] hover:bg-slate-900/80 hover:ring-cyan-500/40"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">{p.title}</h3>
+                <span className="text-xs text-slate-400 group-hover:text-cyan-300">→</span>
+              </div>
+              <p className="mt-2 text-sm text-slate-300">{p.desc}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-md bg-slate-800 px-2 py-1 text-xs text-slate-300 ring-1 ring-white/10"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </a>
           ))}
         </div>
       </section>
 
-      {/* EXPERIENCE */}
-      {/* (unchanged — keep your sections as before) */}
+      {/* EXPERIENCE — bigger company names */}
+      <section id="experience" className="mx-auto max-w-6xl px-6 py-8">
+        <h2 className="text-2xl font-semibold">Experience</h2>
+
+        <div className="mt-6 space-y-6">
+          {/* INTEL */}
+          <div className="rounded-2xl bg-slate-900/60 p-5 ring-2 ring-indigo-500/30">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                {/* Bigger company name */}
+                <span className="rounded-lg bg-indigo-500/15 px-3 py-1 text-sm font-semibold text-indigo-300 ring-1 ring-indigo-500/30">
+                  INTEL
+                </span>
+                <div className="text-base font-semibold">Software Engineering Intern</div>
+              </div>
+              <div className="text-xs text-slate-400">May–Aug 2025</div>
+            </div>
+            <ul className="mt-2 list-disc pl-5 text-sm text-slate-300">
+              <li>
+                Built authenticated <span className="font-medium text-white">Jira REST</span> integrations to sync HSD-ES records; refactored legacy scripts for maintainability.
+              </li>
+              <li>
+                Upgraded GCC 9.2.0 → 12.2.0; fixed CI unit tests and stabilized builds across environments.
+              </li>
+              <li>
+                Improved developer workflow with automated static analysis (Coverity/CppDepend) and expanded test coverage (Bullseye) on SLES15.
+              </li>
+            </ul>
+          </div>
+
+          {/* ARTLAB */}
+          <div className="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="rounded-lg bg-cyan-500/15 px-3 py-1 text-sm font-semibold text-cyan-300 ring-1 ring-cyan-500/30">
+                  ARTLAB
+                </span>
+                <div className="text-base font-semibold">Backend Developer Intern</div>
+              </div>
+              <div className="text-xs text-slate-400">Jun–Sep 2024</div>
+            </div>
+            <ul className="mt-2 list-disc pl-5 text-sm text-slate-300">
+              <li>Integrated TelcoCommunication API to centralize client call history and automate workflows.</li>
+              <li>Tuned SQL and added robust error handling to protect data integrity and reliability.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       {/* ABOUT */}
-      {/* (unchanged) */}
+      <section id="about" className="mx-auto max-w-6xl px-6 py-8">
+        <h2 className="text-2xl font-semibold">About</h2>
+        <div className="mt-4 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
+            <h3 className="font-medium">Education</h3>
+            <p className="mt-2 text-sm text-slate-300">
+              University of Wisconsin–Madison — B.S. Computer Science & B.S. Data Science (May 2026). Dean’s List (2022–2024), GPA 3.7/4.0.
+            </p>
+            <p className="mt-2 text-xs text-slate-400">
+              Coursework: Data Structures, OOP in Java, DBMS, Big Data Systems, AI, UI Design, Linear Algebra, Calculus I–III.
+            </p>
+          </div>
+          <div className="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
+            <h3 className="font-medium">Tech</h3>
+            <p className="mt-2 text-sm text-slate-300">
+              Java, C/C++, Python, JavaScript/TypeScript, React, Next.js, Node, SQL, AWS (Lambda, API Gateway, S3, Glue, Bedrock), Git/GitHub, Docker basics.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* CONTACT */}
-      {/* (unchanged) */}
+      <section id="contact" className="mx-auto max-w-6xl px-6 py-8">
+        <h2 className="text-2xl font-semibold">Contact</h2>
+        <div className="mt-3 flex flex-col gap-2 text-sm text-slate-300">
+          <div>
+            Email:{" "}
+            <a className="text-cyan-300 underline" href="mailto:bumanerdem2004@gmail.com">
+              bumanerdem2004@gmail.com
+            </a>
+          </div>
+          <div>
+            Phone: <a className="underline" href="tel:+16089606679">(608) 960-6679</a>
+          </div>
+          <div>
+            GitHub:{" "}
+            <a className="text-cyan-300 underline" href={GITHUB_URL} target="_blank" rel="noreferrer">
+              github.com/{GITHUB_HANDLE}
+            </a>
+          </div>
+        </div>
+      </section>
 
       <footer className="mx-auto max-w-6xl px-6 pb-12 pt-4 text-xs text-slate-400">
         © {new Date().getFullYear()} Buman-Erdem Enkhbold
